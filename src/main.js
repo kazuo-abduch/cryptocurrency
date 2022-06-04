@@ -7,7 +7,7 @@ const store = createStore({
     return {
       currency: 'Bitcoin',
       price: '',
-      date: '00-00-0000',
+      date: 1641006000,
       priceOnDate: '',
     }
   },

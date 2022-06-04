@@ -16,9 +16,14 @@ export const getPriceDated = async (currency, date) => {
       default:
         currencyUrl = 'bitcoin';        
     }
-  const dataPrice = await fetch(`https://api.coingecko.com/api/v3/coins/${currencyUrl}/market_chart/range?vs_currency=usd&from=${date}&to=${Number(date) + 3600}`);
-  const response  = await dataPrice.json();
-  return response;
+  console.log(currencyUrl, date)
+  try {
+    const dataPrice = await fetch(`https://api.coingecko.com/api/v3/coins/${currencyUrl}/market_chart/range?vs_currency=usd&from=${Number(date) - 3600}&to=${Number(date)}`);
+    const response  = await dataPrice.json();
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export const getPrice = async (currency) => {

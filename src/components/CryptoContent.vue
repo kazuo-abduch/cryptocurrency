@@ -1,6 +1,8 @@
 <script>
   import { mapState } from 'vuex';
   import { getPrice, getPriceDated } from '../service/geckoApi';
+  import SelectCrypto from './SelectCrypto.vue';
+  
   export default {
     data() {
       return {
@@ -24,6 +26,9 @@
         date: state => state.date,
         priceOnDate: state => state.priceOnDate,
       })
+    },
+    components: {
+      SelectCrypto
     },
     methods: {
       renderCurrency() {
@@ -50,6 +55,7 @@
       },
       listChangeDate({ target }) {
         const { hour, minute, seconds } = this.time
+        console.log(Date.now());
         const dateArray = target.value.split('-');
         this.dateObj.year = Number(dateArray[0]);
         this.dateObj.month = Number(dateArray[1]);
@@ -113,6 +119,7 @@
 </script>
 
 <template>
+  <SelectCrypto />
   <div @change="listChangeDate">
     {{ renderCurrency() }}
   </div>

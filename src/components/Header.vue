@@ -24,7 +24,7 @@
     },
     methods: {
       async listenCurrency({ target }) {
-        this.$store.commit('setCurrency', target.innerText);
+        this.$store.commit('setCurrency', target.value);
         const { response, currencyUrl } = await getPrice(this.$store.state.currency);
         this.$store.dispatch('setPrice', response[currencyUrl].usd);
       }
@@ -35,14 +35,13 @@
 <template>
   <header class="item">
     <h1>CryptoCurrency</h1>
-    <ul>
-      <li
+    <select @change="listenCurrency">
+      <option
         v-for="(currency, index) in renderList" v-bind:key="index"
-        @click="listenCurrency"
       >
         {{currency}}
-      </li>
-    </ul>
+      </option>
+    </select>
   </header>
 </template>
 

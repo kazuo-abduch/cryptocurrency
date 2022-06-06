@@ -1,57 +1,24 @@
 <script>
-  import { mapState } from 'vuex';
-  import { getPrice } from '../service/geckoApi';
-  export default {
-    data() {
-      return {
-        currencies: [
-          'BTC',
-          'DACXI',
-          'ETH',
-          'ATOM',
-          'LUNA',
-        ]
-      }
-    },
-    computed: {
-      renderList() {
-        return this.currencies.map(currency => currency);
-      },
-      ...mapState({
-        currency: state => state.currency,
-        price: state => state.price,
-      })
-    },
-    methods: {
-      async listenCurrency({ target }) {
-        this.$store.commit('setCurrency', target.value);
-        const { response, currencyUrl } = await getPrice(this.$store.state.currency);
-        this.$store.dispatch('setPrice', response[currencyUrl].usd);
-      }
-    }
-  }
 </script>
 
 <template>
-  <header class="item">
-    <h1>CryptoCurrency</h1>
-    <select @change="listenCurrency">
-      <option
-        v-for="(currency, index) in renderList" v-bind:key="index"
-      >
-        {{currency}}
-      </option>
-    </select>
+  <header class="">
+  <div class="relative">
+    <img class="object-cover -scale-x-100 h-36" src="../assets/waveBg.svg">
+    <h1 class="
+      w-screen
+      text-center
+      absolute
+      top-0
+      left-0
+      py-5
+      font-sans
+      font-bold
+      text-3xl
+      text-neutral-500
+    ">
+      CryptoCurrency
+    </h1>
+  </div>    
   </header>
 </template>
-
-<style scoped>
-  ul {
-    margin: auto;
-    list-style: none;
-    display: flex;
-  }
-  li {
-    margin-right: 5px;
-  }
-</style>

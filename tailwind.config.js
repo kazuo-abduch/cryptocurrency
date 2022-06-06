@@ -4,7 +4,10 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: ['Roboto', 'sans-serif'],
+      roboto:['Roboto'],
+    }
   },
   plugins: [],
 }

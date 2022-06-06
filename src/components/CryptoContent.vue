@@ -3,6 +3,8 @@
   import { getPrice, getPriceDated } from '../service/geckoApi';
   import SelectCrypto from './SelectCrypto.vue';
   import CurrentPrice from './CurrentPrice.vue';
+  import DateInput from './DateInput.vue';
+  import TimeInput from './TimeInput.vue';
   
   export default {
     data() {
@@ -31,6 +33,8 @@
     components: {
       SelectCrypto,
       CurrentPrice,
+      DateInput,
+      TimeInput
     },
     methods: {
       renderCurrency() {
@@ -124,11 +128,8 @@
   <CurrentPrice />
   <SelectCrypto />
   <form>
-    <input type=date @change="listChangeDate"/>
-    <input placeholder='hour' type="number" max="23" min="0" @change="listenTime" />
-    <input placeholder='minute' type="number" max="59" min="0" @change="listenTime" />
-    <input placeholder='seconds' type="number" max="59" min="0" @change="listenTime" />
-    <button type="button" @click="getPriceByDate" >Confirm</button>    
+    <DateInput />
+    <TimeInput />
   </form>
   <div>
     <div>

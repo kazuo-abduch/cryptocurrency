@@ -10,8 +10,20 @@
   }
 </script>
 
-<template lang="">
-  <div>
+<template>
+  <div
+    class="
+      text-neutral-500
+      py-7
+      font-sans
+      text-center
+      text-xl
+      font-bold
+      sm:px-20
+      sm:top-10
+      sm:text-left
+      sm:text-3xl
+    ">
     {{ this.$store.state.currency }} Current price: USD {{ this.$store.state.price }}
   </div>
 </template>

@@ -2,6 +2,7 @@
   import { mapState } from 'vuex';
   import { getPrice, getPriceDated } from '../service/geckoApi';
   import SelectCrypto from './SelectCrypto.vue';
+  import CurrentPrice from './CurrentPrice.vue';
   
   export default {
     data() {
@@ -28,7 +29,8 @@
       })
     },
     components: {
-      SelectCrypto
+      SelectCrypto,
+      CurrentPrice,
     },
     methods: {
       renderCurrency() {
@@ -119,10 +121,8 @@
 </script>
 
 <template>
+  <CurrentPrice />
   <SelectCrypto />
-  <div @change="listChangeDate">
-    {{ renderCurrency() }}
-  </div>
   <form>
     <input type=date @change="listChangeDate"/>
     <input placeholder='hour' type="number" max="23" min="0" @change="listenTime" />
@@ -130,9 +130,6 @@
     <input placeholder='seconds' type="number" max="59" min="0" @change="listenTime" />
     <button type="button" @click="getPriceByDate" >Confirm</button>    
   </form>
-  <div>
-    Current price: USD {{ this.$store.state.price }}
-  </div>
   <div>
     <div>
       Price on {{ this.renderDate }}:

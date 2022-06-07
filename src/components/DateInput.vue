@@ -1,10 +1,13 @@
 <script>
   import { mapState } from 'vuex';
+  import { getPriceDated } from '../service/geckoApi';
   export default {
     computed: {
       ...mapState({
         dateObj: state => state.dateObj,
         timeObj: state => state.timeObj,
+        currency: state => state.currency,
+        price: state => state.price,
       })
     },
     methods: {
@@ -12,7 +15,7 @@
         const dateUnixTimestamp = new Date(Date.UTC(year,month,day,hour,minute,second));
         return dateUnixTimestamp.getTime()/1000;
       },
-      listChangeDate({ target }) {
+      async listChangeDate({ target }) {
         const dateArray = target.value.split('-');
         const newDateObj = {
           day: Number(dateArray[2]),
@@ -29,13 +32,21 @@
         );
         this.$store.commit('setDateObj', newDateObj);
         this.$store.commit('setDate', dateUnix);
+        const dataPrice = await getPriceDated(this.$store.state.currency, this.$store.state.date);
+        const { prices } = dataPrice;
+        this.$store.dispatch('setPriceOnDate', prices[0][1]);
       },
     },
   }
 </script>
 
 <template>
-  <div class="">
-    <input type=date @change="listChangeDate"/>
+  <div class="flex p-5 lg:p-0 lg:pb-5">
+    <img src="../assets/calendarIcon.svg" class="pr-5">
+    <input
+      class="rounded-2xl text-center"
+      type=date
+      @change="listChangeDate"
+    />
   </div>
 </template>

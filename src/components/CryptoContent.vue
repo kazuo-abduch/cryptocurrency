@@ -1,104 +1,57 @@
 <script>
   import { mapState } from 'vuex';
   import { getPrice, getPriceDated } from '../service/geckoApi';
+
+  import CurrentPrice from './CurrentPrice.vue';
+  import SelectCrypto from './SelectCrypto.vue';
+  import DateInput from './DateInput.vue';
+  import TimeInput from './TimeInput.vue';
+  import GetPriceButton from './GetPriceButton.vue';
+  import MessagePriceByDate from './MessagePriceByDate.vue';
+
   export default {
-    data() {
-      return {
-        dateObj: {
-          day: 0,
-          month: 0,
-          year: 0
-        },
-        time: {
-          hour: 0,
-          minute: 0,
-          seconds: 0
-        },
-        renderDate: '',
-      }
+    components: {
+      SelectCrypto,
+      DateInput,
+      TimeInput,
+      GetPriceButton,
+      MessagePriceByDate,
+      CurrentPrice,
     },
     computed: {
       ...mapState({
+        hasSearched: state => state.hasSearched,
         currency: state => state.currency,
         price: state => state.price,
         date: state => state.date,
         priceOnDate: state => state.priceOnDate,
+        dateObj: state => state.dateObj,
+        timeObj: state => state.timeObj,
       })
     },
     methods: {
-      renderCurrency() {
-        return this.$store.state.currency;
-      },
-      setRenderDate() {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-        this.renderDate = `${months[this.dateObj.month - 1]} ${this.dateObj.day} ${this.dateObj.year} ${this.time.hour}:${this.time.minute}:${this.time.seconds} GTM+0000`;
+      getHasSearched() {
+        return this.$store.state.hasSearched;
       },
       getToday() {        
         const date = new Date();
         this.$store.commit('setDate', Math.floor(date.getTime()/1000));
-        this.dateObj.day = date.getDate();
-        this.dateObj.month = date.getMonth() + 1;
-        this.dateObj.year = date.getFullYear();
-        this.time.hour = ("0" + date.getHours()).slice(-2);
-        this.time.minute = ("0" + date.getMinutes()).slice(-2);
-        this.time.seconds = ("0" + date.getSeconds()).slice(-2);
-        this.setRenderDate();
-      },
-      toUnixTimestamp(year,month,day,hour,minute,second) {
-        const dateUnixTimestamp = new Date(Date.UTC(year,month,day,hour,minute,second));
-        return dateUnixTimestamp.getTime()/1000;
-      },
-      listChangeDate({ target }) {
-        const { hour, minute, seconds } = this.time
-        const dateArray = target.value.split('-');
-        this.dateObj.year = Number(dateArray[0]);
-        this.dateObj.month = Number(dateArray[1]);
-        this.dateObj.day = Number(dateArray[2]);
-        this.setRenderDate();
-        const dateUnix = this.toUnixTimestamp(
-          this.dateObj.year,
-          this.dateObj.month - 1,
-          this.dateObj.day,
-          Number(hour),
-          Number(minute),
-          Number(seconds),
-        );
-        this.$store.commit('setDate', dateUnix);
-      },
-      listenTime({ target }) {
-        if (target.placeholder === 'hour') {
-          if (target.value > 23) {
-            target.value = 23;
-            if (target.value < 0) {
-              target.value = 0;
-            }
-          }
-          this.time.hour = target.value;
+        const newDate = {
+          day: date.getDate(),
+          month: date.getMonth() + 1,
+          year: date.getFullYear()
         };
-        if (target.placeholder === 'minute') {
-          if (target.value > 59) {
-            target.value = 59;
-            if (target.value < 0) {
-              target.value = 0;
-            }
-          }
-          this.time.minute = target.value;
+        this.$store.commit('setDateObj', newDate);
+        const newTime = {
+          hour: ("0" + date.getHours()).slice(-2),
+          minute: ("0" + date.getMinutes()).slice(-2),
+          seconds: ("0" + date.getSeconds()).slice(-2),
         };
-        if (target.placeholder === 'seconds') {
-          if (target.value > 59) {
-            target.value = 59;
-            if (target.value < 0) {
-              target.value = 0;
-            }
-          }
-          this.time.seconds = target.value;
-        };
-        this.setRenderDate();
+        this.$store.commit('setTimeObj', newTime);
       },
       async getPriceByDate() {  
         const dataPrice = await getPriceDated(this.$store.state.currency, this.$store.state.date)
         const { prices } = dataPrice;
-        console.log(prices[0][1]);
         this.$store.dispatch('setPriceOnDate', prices[0][1]);
       },
     },
@@ -113,25 +66,18 @@
 </script>
 
 <template>
-  <div @change="listChangeDate">
-    {{ renderCurrency() }}
-  </div>
-  <form>
-    <input type=date @change="listChangeDate"/>
-    <input placeholder='hour' type="number" max="23" min="0" @change="listenTime" />
-    <input placeholder='minute' type="number" max="59" min="0" @change="listenTime" />
-    <input placeholder='seconds' type="number" max="59" min="0" @change="listenTime" />
-    <button type="button" @click="getPriceByDate" >Confirm</button>    
-  </form>
   <div>
-    Current price: USD {{ this.$store.state.price }}
-  </div>
-  <div>
-    <div>
-      Price on {{ this.renderDate }}:
-    </div>
-    <div>
-      USD {{ this.$store.state.priceOnDate }}
+    <CurrentPrice />
+    <div class="flex flex-col items-center lg:items-start lg:flex-row lg:px-10">
+      <SelectCrypto />
+      <div class="lg:px-10">
+        <DateInput />
+        <TimeInput />
+        <GetPriceButton />
+      </div>
+      <div v-if="getHasSearched()">
+        <MessagePriceByDate />
+      </div>
     </div>
   </div>
 </template>

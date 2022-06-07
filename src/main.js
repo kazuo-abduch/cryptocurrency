@@ -6,6 +6,7 @@ import './index.css'
 const store = createStore({
   state() {
     return {
+      hasSearched: false,
       currency: 'Bitcoin',
       price: '',
       date: 1641006000,
@@ -23,6 +24,9 @@ const store = createStore({
     }
   },
   mutations: {
+    setHasSearched(state, newSearch) {
+      state.hasSearched = newSearch
+    },
     setCurrency(state, newCurrency) {
       state.currency = newCurrency;
     },

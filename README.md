@@ -1,6 +1,6 @@
 # CryptoCurrency
 
-This is a project for consulting usd prices of cryptocurrencies live, or on a specific date using Vue.js and Tailwindcss.
+This is a project for consulting usd prices of cryptocurrencies in real time, or on a specific date using Vue.js and Tailwindcss.
 
 ## Setup
 

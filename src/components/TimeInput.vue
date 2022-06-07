@@ -1,13 +1,16 @@
 <script>
   import { mapState } from 'vuex';
+  import { getPriceDated } from '../service/geckoApi';
   export default {
     computed: {
       ...mapState({
         timeObj: state => state.timeObj,
+        currency: state => state.currency,
+        price: state => state.price,
       })
     },
     methods: {
-      listenTime({ target }) {
+      async listenTime({ target }) {
         if (target.placeholder === 'hour') {
           if (target.value > 23) {
             target.value = 23;
@@ -35,6 +38,9 @@
           }
           this.$store.commit('setTimeObj', { ...this.$store.state.timeObj, seconds: ("0" + target.value).slice(-2) });
         };
+        const dataPrice = await getPriceDated(this.$store.state.currency, this.$store.state.date);
+        const { prices } = dataPrice;
+        this.$store.dispatch('setPriceOnDate', prices[0][1]);
       },
     },
   }

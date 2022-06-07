@@ -47,7 +47,7 @@
     </div>
     <div class="pr-2">
       <input
-        class="rounded-2xl text-center h-8 w-16"
+        class="rounded-2xl text-center h-8 w-14"
         placeholder='hour'
         type="number"
         max="23"
@@ -57,7 +57,7 @@
     </div>
     <div class="pr-2">
       <input
-        class="rounded-2xl text-center h-8 w-16"
+        class="rounded-2xl text-center h-8 w-14"
         placeholder='min'
         type="number"
         max="59"
@@ -67,7 +67,7 @@
     </div>
     <div>
       <input
-        class="rounded-2xl text-center h-8 w-16"
+        class="rounded-2xl text-center h-8 w-14"
         placeholder='sec'
         type="number"
         max="59"

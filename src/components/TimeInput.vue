@@ -45,6 +45,5 @@
     <input placeholder='hour' type="number" max="23" min="0" @change="listenTime" />
     <input placeholder='minute' type="number" max="59" min="0" @change="listenTime" />
     <input placeholder='seconds' type="number" max="59" min="0" @change="listenTime" />
-    <button type="button" @click="getPriceByDate" >Confirm</button>    
   </div>
 </template>

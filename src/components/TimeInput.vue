@@ -15,7 +15,7 @@
               target.value = 0;
             }
           }
-          this.$store.commit('setTimeObj', { ...this.$store.state.timeObj, hour: target.value });
+          this.$store.commit('setTimeObj', { ...this.$store.state.timeObj, hour: ("0" + target.value).slice(-2) });
         };
         if (target.placeholder === 'minute') {
           if (target.value > 59) {
@@ -24,7 +24,7 @@
               target.value = 0;
             }
           }
-          this.$store.commit('setTimeObj', { ...this.$store.state.timeObj, minute: target.value });
+          this.$store.commit('setTimeObj', { ...this.$store.state.timeObj, minute: ("0" + target.value).slice(-2) });
         };
         if (target.placeholder === 'seconds') {
           if (target.value > 59) {
@@ -33,7 +33,7 @@
               target.value = 0;
             }
           }
-          this.$store.commit('setTimeObj', { ...this.$store.state.timeObj, seconds: target.value });
+          this.$store.commit('setTimeObj', { ...this.$store.state.timeObj, seconds: ("0" + target.value).slice(-2) });
         };
       },
     },

@@ -53,7 +53,7 @@
         class="w-7 ml-2"
         src="../assets/moneyIcon.svg">
       <div class="pl-3">
-        USD {{ this.$store.state.priceOnDate }}
+        ${{ this.$store.state.priceOnDate }}
       </div>
     </div>
   </div>

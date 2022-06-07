@@ -44,3 +44,10 @@
     />
   </div>
 </template>
+
+<style>
+  input[type="date"]::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
+  }
+</style>

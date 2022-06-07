@@ -5,6 +5,7 @@
   import CurrentPrice from './CurrentPrice.vue';
   import DateInput from './DateInput.vue';
   import TimeInput from './TimeInput.vue';
+  import MessagePriceByDate from './MessagePriceByDate.vue';
   
   export default {
     data() {
@@ -34,85 +35,27 @@
       SelectCrypto,
       CurrentPrice,
       DateInput,
-      TimeInput
+      TimeInput,
+      MessagePriceByDate,
     },
-    methods: {
-      renderCurrency() {
-        return this.$store.state.currency;
-      },
-      setRenderDate() {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-        this.renderDate = `${months[this.dateObj.month - 1]} ${this.dateObj.day} ${this.dateObj.year} ${this.time.hour}:${this.time.minute}:${this.time.seconds} GTM+0000`;
-      },
+    methods: {      
       getToday() {        
         const date = new Date();
         this.$store.commit('setDate', Math.floor(date.getTime()/1000));
-        this.dateObj.day = date.getDate();
-        this.dateObj.month = date.getMonth() + 1;
-        this.dateObj.year = date.getFullYear();
-        this.time.hour = ("0" + date.getHours()).slice(-2);
-        this.time.minute = ("0" + date.getMinutes()).slice(-2);
-        this.time.seconds = ("0" + date.getSeconds()).slice(-2);
-        this.setRenderDate();
-      },
-      toUnixTimestamp(year,month,day,hour,minute,second) {
-        const dateUnixTimestamp = new Date(Date.UTC(year,month,day,hour,minute,second));
-        return dateUnixTimestamp.getTime()/1000;
-      },
-      listChangeDate({ target }) {
-        const { hour, minute, seconds } = this.time
-        console.log(Date.now());
-        const dateArray = target.value.split('-');
-        this.dateObj.year = Number(dateArray[0]);
-        this.dateObj.month = Number(dateArray[1]);
-        this.dateObj.day = Number(dateArray[2]);
-        this.setRenderDate();
-        const dateUnix = this.toUnixTimestamp(
-          this.dateObj.year,
-          this.dateObj.month - 1,
-          this.dateObj.day,
-          Number(hour),
-          Number(minute),
-          Number(seconds),
-        );
-        this.$store.commit('setDate', dateUnix);
-      },
-      listenTime({ target }) {
-        if (target.placeholder === 'hour') {
-          if (target.value > 23) {
-            target.value = 23;
-            if (target.value < 0) {
-              target.value = 0;
-            }
-          }
-          this.time.hour = target.value;
+        
+        const newDateObj = {
+          day: date.getDate(),
+          month:date.getMonth() + 1,
+          year: date.getFullYear(),
         };
-        if (target.placeholder === 'minute') {
-          if (target.value > 59) {
-            target.value = 59;
-            if (target.value < 0) {
-              target.value = 0;
-            }
-          }
-          this.time.minute = target.value;
+        const newTimeObj = {
+          hour: ("0" + date.getHours()).slice(-2),
+          minute:("0" + date.getMinutes()).slice(-2),
+          seconds: ("0" + date.getSeconds()).slice(-2),
         };
-        if (target.placeholder === 'seconds') {
-          if (target.value > 59) {
-            target.value = 59;
-            if (target.value < 0) {
-              target.value = 0;
-            }
-          }
-          this.time.seconds = target.value;
-        };
-        this.setRenderDate();
-      },
-      async getPriceByDate() {  
-        const dataPrice = await getPriceDated(this.$store.state.currency, this.$store.state.date)
-        const { prices } = dataPrice;
-        console.log(prices[0][1]);
-        this.$store.dispatch('setPriceOnDate', prices[0][1]);
-      },
+        this.$store.commit('setDateObj', newDateObj);
+        this.$store.commit('setTimeObj', newTimeObj);
+      }
     },
     mounted() {
       setInterval(async () => {
@@ -132,12 +75,7 @@
     <TimeInput />
   </form>
   <div>
-    <div>
-      Price on {{ this.renderDate }}:
-    </div>
-    <div>
-      USD {{ this.$store.state.priceOnDate }}
-    </div>
+    <MessagePriceByDate />
   </div>
 </template>
 

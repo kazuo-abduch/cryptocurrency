@@ -69,14 +69,16 @@
 <template>
   <div>
     <CurrentPrice />
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center lg:items-start lg:flex-row lg:px-10">
       <SelectCrypto />
-      <DateInput />
-      <TimeInput />
-      <GetPriceButton />
-    </div>
-    <div v-if="getHasSearched()">
-      <MessagePriceByDate />
+      <div class="lg:px-10">
+        <DateInput />
+        <TimeInput />
+        <GetPriceButton />
+      </div>
+      <div v-if="getHasSearched()">
+        <MessagePriceByDate />
+      </div>
     </div>
   </div>
 </template>

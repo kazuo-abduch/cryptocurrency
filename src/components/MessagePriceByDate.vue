@@ -30,8 +30,9 @@
   <div class="
     flex flex-col justify-around
     m-auto mt-5
+    lg:mt-0 lg:w-500
     bg-[#3b3b3b] text-[#707070] rounded-2xl font-semibold
-    w-4/6 h-44 p-2.5">
+    w-fill h-44 p-2.5">
     <div class="flex">
       <img
         class="w-5 ml-2"

@@ -35,7 +35,8 @@
 <template>
   <select class="
     bg-[#3b3b3b] text-[#707070] rounded-2xl font-semibold
-    block w-4/6 p-2.5 text-center"
+    block w-4/6 p-2.5 text-center
+    lg:w-1/12"
     @change="listenCurrency">
       <option
         class="text-[#707070] rounded-2xl font-semibold"

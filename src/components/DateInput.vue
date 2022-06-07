@@ -35,7 +35,7 @@
 </script>
 
 <template>
-  <div class="flex p-5 mr-14">
+  <div class="flex p-5 lg:p-0 lg:pb-5">
     <img src="../assets/calendarIcon.svg" class="pr-5">
     <input
       class="rounded-2xl text-center"

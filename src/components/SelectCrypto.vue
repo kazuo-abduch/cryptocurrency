@@ -33,8 +33,12 @@
 </script>
 
 <template>
-  <select @change="listenCurrency">
+  <select class="
+    bg-[#3b3b3b] text-[#707070] rounded-2xl font-semibold
+    focus:border-blue-500 block w-3/6 p-2.5 text-center"
+    @change="listenCurrency">
       <option
+        class="text-[#707070] rounded-2xl font-semibold"
         v-for="(currency, index) in renderList" v-bind:key="index"
       >
         {{currency}}

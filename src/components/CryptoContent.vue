@@ -65,10 +65,12 @@
 <template>
   <div>
     <CurrentPrice />
-    <SelectCrypto />
-    <DateInput />
-    <TimeInput />
-    <GetPriceButton />
+    <div class="flex flex-col items-center">
+      <SelectCrypto />
+      <DateInput />
+      <TimeInput />
+      <GetPriceButton />
+    </div>
     <MessagePriceByDate />
   </div>
 </template>

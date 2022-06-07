@@ -35,7 +35,12 @@
 </script>
 
 <template>
-  <div class="">
-    <input type=date @change="listChangeDate"/>
+  <div class="flex p-5">
+    <img src="../assets/calendarIcon.svg" class="pr-5">
+    <input
+      class="rounded-2xl text-center"
+      type=date
+      @change="listChangeDate"
+    />
   </div>
 </template>

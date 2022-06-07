@@ -52,7 +52,6 @@
       async getPriceByDate() {  
         const dataPrice = await getPriceDated(this.$store.state.currency, this.$store.state.date)
         const { prices } = dataPrice;
-        console.log(prices[0][1]);
         this.$store.dispatch('setPriceOnDate', prices[0][1]);
       },
     },

@@ -4,6 +4,7 @@
   export default {
     computed: {
       ...mapState({
+        hasSearched: state => state.hasSearched,
         currency: state => state.currency,
         date: state => state.date,
       })
@@ -13,6 +14,7 @@
         const dataPrice = await getPriceDated(this.$store.state.currency, this.$store.state.date)
         const { prices } = dataPrice;
         this.$store.dispatch('setPriceOnDate', prices[0][1]);
+        this.$store.commit('setHasSearched', true);
       },
     },
   }

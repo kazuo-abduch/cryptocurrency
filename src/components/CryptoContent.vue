@@ -20,6 +20,7 @@
     },
     computed: {
       ...mapState({
+        hasSearched: state => state.hasSearched,
         currency: state => state.currency,
         price: state => state.price,
         date: state => state.date,
@@ -28,7 +29,10 @@
         timeObj: state => state.timeObj,
       })
     },
-    methods: {      
+    methods: {
+      getHasSearched() {
+        return this.$store.state.hasSearched;
+      },
       getToday() {        
         const date = new Date();
         this.$store.commit('setDate', Math.floor(date.getTime()/1000));
@@ -71,7 +75,9 @@
       <TimeInput />
       <GetPriceButton />
     </div>
-    <MessagePriceByDate />
+    <div v-if="getHasSearched()">
+      <MessagePriceByDate />
+    </div>
   </div>
 </template>
 

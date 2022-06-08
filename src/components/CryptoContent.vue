@@ -77,7 +77,7 @@
         <GetPriceButton />
       </div>
       <div v-if="getHasSearched()">
-        <div class="transition-opacity">
+        <div class="changeOpacity">
           <MessagePriceByDate />
         </div>
       </div>
@@ -85,4 +85,16 @@
   </div>
 </template>
 
-<style></style>
+<style>
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.changeOpacity {
+  animation: fadeIn 0.5s;
+}
+</style>

@@ -10,7 +10,8 @@
     },
     methods: {
       setRenderDate() {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        const months = ["January","February","March","April","May","June","July",
+            "August","September","October","November","December"];;
         return `${
           months[this.$store.state.dateObj.month - 1]} 
           ${this.$store.state.dateObj.day} - 

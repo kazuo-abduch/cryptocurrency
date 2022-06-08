@@ -24,6 +24,7 @@
       },
       methods: {
         async listenCurrency({ target }) {
+          this.$store.dispatch('setSearching', true)
           this.$store.commit('setCurrency', target.value);
           const { response, currencyUrl } = await getPrice(this.$store.state.currency);
           const dataPrice = await getPriceDated(this.$store.state.currency, this.$store.state.date);

@@ -6,6 +6,7 @@ import './index.css'
 const store = createStore({
   state() {
     return {
+      searching: true,
       hasSearched: false,
       currency: 'Bitcoin',
       price: '',
@@ -24,8 +25,11 @@ const store = createStore({
     }
   },
   mutations: {
+    setSearching(state, doneSearching) {
+      state.searching = doneSearching;
+    },
     setHasSearched(state, newSearch) {
-      state.hasSearched = newSearch
+      state.hasSearched = newSearch;
     },
     setCurrency(state, newCurrency) {
       state.currency = newCurrency;
@@ -47,6 +51,9 @@ const store = createStore({
     },
   },
   actions: {
+    setSearching({ commit }, doneSearching) {
+      commit('setSearching', doneSearching);
+    },
     setPrice({ commit }, newPrice) {
       commit('setPrice', newPrice);
     },

@@ -58,6 +58,7 @@
     mounted() {
       setInterval(async () => {
         const { response, currencyUrl } = await getPrice(this.$store.state.currency);
+        this.$store.dispatch('setSearching', false);
         this.$store.dispatch('setPrice', response[currencyUrl].usd);
       }, 2000),
       this.getToday();
@@ -76,7 +77,9 @@
         <GetPriceButton />
       </div>
       <div v-if="getHasSearched()">
-        <MessagePriceByDate />
+        <div class="transition-opacity">
+          <MessagePriceByDate />
+        </div>
       </div>
     </div>
   </div>

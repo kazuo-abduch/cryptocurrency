@@ -11,7 +11,7 @@ export const getPriceDated = async (currency, date) => {
         currencyUrl = 'cosmos';
         break;
       case 'LUNA':
-        currencyUrl = 'terra-luna';
+        currencyUrl = 'terra-luna-2';
         break;
       default:
         currencyUrl = 'bitcoin';        
@@ -38,7 +38,7 @@ export const getPrice = async (currency) => {
         currencyUrl = 'cosmos';
         break;
       case 'LUNA':
-        currencyUrl = 'terra-luna';
+        currencyUrl = 'terra-luna-2';
         break;
       default:
         currencyUrl = 'bitcoin';        
